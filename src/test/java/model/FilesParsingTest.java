@@ -13,9 +13,11 @@ import java.util.zip.ZipInputStream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilesParsingTest {
+
     ClassLoader cl = FilesParsingTest.class.getClassLoader();
     @Test
     void zipParseTest() throws Exception {
+        System.setProperty("chromeoptions.args", "--remote-allow-origins=*");
         try (
                 InputStream resource = cl.getResourceAsStream("example/qa_guru_files.zip");
                 ZipInputStream zis = new ZipInputStream(resource)
@@ -26,7 +28,7 @@ public class FilesParsingTest {
 
             while((entry = zis.getNextEntry()) != null) {
                 name = entry.getName();
-                size=entry.getSize();
+                size = entry.getSize();
                 System.out.println("//////////////////////////////////////////");
                 System.out.printf("File name: %s \t File size: %d\n", name, size);
 
